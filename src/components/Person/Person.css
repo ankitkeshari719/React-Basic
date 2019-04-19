@@ -1,0 +1,15 @@
+.person {
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #eee;
+  box-shadow: 0 0 2px #ccc;
+  width: 250px;
+  display: inline-block;
+}
+.person_name {
+  text-align: center;
+  color: green;
+}
+.person_data {
+  font-weight: bold;
+}
