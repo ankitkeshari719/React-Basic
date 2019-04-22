@@ -58,6 +58,17 @@ class App extends Component {
     };
   }
 
+  // Function to handle the show/hide of persons list
+  togglePersonsListHandler = () => {
+    let oldTogglePersonsState = this.state.togglePersons;
+    let newTogglePersonsState = !oldTogglePersonsState;
+
+    this.setState({
+      togglePersons: newTogglePersonsState
+    });
+  };
+
+  // Function to handle the show/hide of person
   viewPersonHandler = personId => {
     let updatePerson = [...this.state.persons].map(person => {
       if (person.id === personId) {
@@ -70,23 +81,22 @@ class App extends Component {
     this.setState({ persons: updatePerson });
   };
 
-  togglePersonsListHandler = () => {
-    let oldTogglePersonsState = this.state.togglePersons;
-    let newTogglePersonsState = !oldTogglePersonsState;
-
-    this.setState({
-      togglePersons: newTogglePersonsState
-    });
+  // Function to handle the delete operation on person list
+  deletePersonHandler = personId => {
+    const oldPersonState = [...this.state.persons];
+    oldPersonState.splice(personId, 1);
+    this.setState({ persons: oldPersonState });
   };
 
   render() {
     let personsDoc = null;
     if (this.state.persons && this.state.togglePersons) {
-      personsDoc = this.state.persons.map(person => (
+      personsDoc = this.state.persons.map((person, index) => (
         <Persons
           key={person.id}
           person={person}
           viewPersonHandlerRef={() => this.viewPersonHandler(person.id)}
+          deletePersonHandlerRef={() => this.deletePersonHandler(index)}
         >
           {person.hobbies}
         </Persons>
@@ -108,14 +118,14 @@ class App extends Component {
               {person.hobbies}
             </ViewPerson>
           );
-        } else {
-          personDoc = (
-            <h4 style={{ textAlign: "center", color: "green" }}>
-              Please click the toggle button!!{" "}
-            </h4>
-          );
         }
       });
+    } else {
+      personDoc = (
+        <h4 style={{ textAlign: "center", color: "green" }}>
+          Please click the toggle button!!{" "}
+        </h4>
+      );
     }
 
     return (

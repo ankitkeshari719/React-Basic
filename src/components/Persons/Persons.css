@@ -23,6 +23,7 @@ button {
   font: inherit;
   padding: 10px;
   font-weight: bold;
+  margin: 5px;
   color: #944317;
   box-shadow: 0 0 1px #ccc;
 }
