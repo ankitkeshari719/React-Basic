@@ -11,7 +11,13 @@ const Persons = props => {
       <p>
         <span className="person_data">Hobbies:</span> {props.children}
       </p>
-      <button type="button" onClick={() => props.viewPersonHandlerRef(props.person.id)}>View</button>
+      <button
+        type="button"
+        onClick={() => props.viewPersonHandlerRef(props.person.id)}
+      >
+        View
+      </button>
+      {/* <button type="button" onClick={props.viewPersonHandlerRef}>View</button> */}
     </div>
   );
 };
