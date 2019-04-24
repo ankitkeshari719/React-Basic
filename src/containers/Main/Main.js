@@ -5,6 +5,7 @@ import TogglePersons from "../../components/TogglePersons/TogglePersons";
 
 class Main extends Component {
   constructor(props) {
+    console.log("[Main: constructor method]");
     super(props);
     this.state = {
       persons: [
@@ -69,12 +70,8 @@ class Main extends Component {
 
   // Function to handle the show/hide of person
   viewPersonHandler = personId => {
-    let updatePerson = [...this.state.persons].map(person => {
-      if (person.id === personId) {
-        person.isViewPerson = true;
-      } else {
-        person.isViewPerson = false;
-      }
+    let updatePerson = this.state.persons.map(person => {
+      person.isViewPerson = person.id === personId || false;
       return person;
     });
     this.setState({ persons: updatePerson });
@@ -89,41 +86,35 @@ class Main extends Component {
 
   render() {
     let personsDoc = null;
-    if (this.state.persons && this.state.togglePersons) {
-      personsDoc = this.state.persons.map((person, index) => (
-        <Persons
-          key={person.id}
-          person={person}
-          viewPersonHandlerRef={() => this.viewPersonHandler(person.id)}
-          deletePersonHandlerRef={() => this.deletePersonHandler(index)}
-        >
-          {person.hobbies}
-        </Persons>
-      ));
-    } else {
-      personsDoc = (
+    personsDoc =
+      this.state.persons && this.state.togglePersons ? (
+        this.state.persons.map((person, index) => (
+          <Persons
+            key={person.id}
+            person={person}
+            viewPersonHandlerRef={() => this.viewPersonHandler(person.id)}
+            deletePersonHandlerRef={() => this.deletePersonHandler(index)}
+          >
+            {person.hobbies}
+          </Persons>
+        ))
+      ) : (
         <h4 style={{ textAlign: "center", color: "green" }}>
           Please click the toggle button!!{" "}
         </h4>
       );
-    }
 
     let personDoc = null;
-    if (this.state.persons && this.state.togglePersons) {
-      personDoc = this.state.persons.map(person => {
-        if (person.isViewPerson) {
-          return (
-            <ViewPerson key={person.id} person={person}>
-              {person.hobbies}
-            </ViewPerson>
-          );
-        } else {
-          return null;
-        }
-      });
-    } else {
-      personDoc = null;
-    }
+    personDoc =
+      this.state.persons && this.state.togglePersons
+        ? this.state.persons.map(person =>
+            person.isViewPerson ? (
+              <ViewPerson key={person.id} person={person}>
+                {person.hobbies}
+              </ViewPerson>
+            ) : null
+          )
+        : null;
 
     return (
       <div>

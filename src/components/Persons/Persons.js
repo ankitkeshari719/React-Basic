@@ -2,6 +2,7 @@ import React from "react";
 import "./Persons.css";
 
 const Persons = props => {
+  console.log("[Persons: render method called]");
   return (
     <div className="person">
       <h1 className="person_name">{props.person.name}</h1>
@@ -17,7 +18,6 @@ const Persons = props => {
       <button type="button" onClick={props.deletePersonHandlerRef}>
         Delete
       </button>
-      {/* <button type="button" onClick={props.viewPersonHandlerRef}>View</button> */}
     </div>
   );
 };
