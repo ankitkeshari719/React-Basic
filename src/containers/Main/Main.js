@@ -5,7 +5,6 @@ import TogglePersons from "../../components/TogglePersons/TogglePersons";
 
 class Main extends Component {
   constructor(props) {
-    console.log("[Main: constructor method]");
     super(props);
     this.state = {
       persons: [
@@ -60,11 +59,8 @@ class Main extends Component {
 
   // Function to handle the show/hide of persons list
   togglePersonsListHandler = () => {
-    let oldTogglePersonsState = this.state.togglePersons;
-    let newTogglePersonsState = !oldTogglePersonsState;
-
     this.setState({
-      togglePersons: newTogglePersonsState
+      togglePersons: !this.state.togglePersons
     });
   };
 
@@ -88,16 +84,11 @@ class Main extends Component {
     let personsDoc = null;
     personsDoc =
       this.state.persons && this.state.togglePersons ? (
-        this.state.persons.map((person, index) => (
-          <Persons
-            key={person.id}
-            person={person}
-            viewPersonHandlerRef={() => this.viewPersonHandler(person.id)}
-            deletePersonHandlerRef={() => this.deletePersonHandler(index)}
-          >
-            {person.hobbies}
-          </Persons>
-        ))
+        <Persons
+          persons={this.state.persons}
+          viewPersonHandlerRef={this.viewPersonHandler}
+          deletePersonHandlerRef={this.deletePersonHandler}
+        />
       ) : (
         <h4 style={{ textAlign: "center", color: "green" }}>
           Please click the toggle button!!{" "}
