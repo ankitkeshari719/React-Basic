@@ -1,10 +1,9 @@
 import React, { Component } from "react";
-import "./App.css";
-import Persons from "./components/Persons/Persons";
-import ViewPerson from "./components/Persons/ViewPerson/viewPerson";
-import TogglePersons from "./components/TogglePersons/TogglePersons";
+import Persons from "../../components/Persons/Persons";
+import ViewPerson from "../../components/Persons/ViewPerson/viewPerson";
+import TogglePersons from "../../components/TogglePersons/TogglePersons";
 
-class App extends Component {
+class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -118,14 +117,12 @@ class App extends Component {
               {person.hobbies}
             </ViewPerson>
           );
+        } else {
+          return null;
         }
       });
     } else {
-      personDoc = (
-        <h4 style={{ textAlign: "center", color: "green" }}>
-          Please click the toggle button!!{" "}
-        </h4>
-      );
+      personDoc = null;
     }
 
     return (
@@ -140,4 +137,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default Main;
